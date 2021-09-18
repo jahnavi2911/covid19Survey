@@ -1,0 +1,153 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <div class="card house-card">
+                <div class="card-body">
+                    <div class="card-title">
+                        <h4 class="text-center">ENTER HOUSE DETAILS: </h4>
+                    </div>
+                    <form [formGroup]="houseEntry" class="houseForm" (ngSubmit)="save()">
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                                <label for="house-number" class="form-label">House Number</label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" formControlName="houseNo" class="form-control"
+                                    [ngClass]="{'is-invalid': (houseEntry.get('houseNo').touched || houseEntry.get('houseNo').dirty) && !houseEntry.get('houseNo').valid}">
+                                <span class="invalid-feedback">
+                                    <span *ngIf="houseEntry.get('houseNo').errors?.required">
+                                        Please enter the house number
+                                    </span>
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-2">
+                                <label for="address" class="form-label">Address</label>
+                            </div>
+                            <div class="col-md-4">
+                                <textarea id="address" class="form-control" cols="48" rows="3" formControlName="address"
+                                    [ngClass]="{'is-invalid': (houseEntry.get('address').touched || houseEntry.get('address').dirty) && !houseEntry.get('address').valid}"></textarea>
+                                <span class="invalid-feedback">
+                                    <span *ngIf="houseEntry.get('address').errors?.required">
+                                        Please enter the address
+                                    </span>
+                                    <span *ngIf="houseEntry.get('address').errors?.minlength">
+                                        Please enter atleast 5 characters
+                                    </span>
+                                    <span *ngIf="houseEntry.get('address').errors?.maxlength">
+                                        Maximum characters is 50
+                                    </span>
+                                </span>
+
+                            </div>
+
+                        </div>
+                        <div formArrayName="members" *ngFor="let member of members.controls; let i=index">
+                            <div [formGroupName]="i">
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label attr.for="{{'memberName'+i}}" class="form-label">Member Name</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="text" formControlName="memberName" id="{{'memberName'+i}}"
+                                            class="form-control"
+                                            [ngClass]="{'is-invalid': (members.controls[i].get('memberName').touched || members.controls[i].get('memberName').dirty) && !members.controls[i].get('memberName').valid}">
+
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="members.controls[i].get('memberName').errors?.required">
+                                                Please enter the name
+                                            </span>
+                                            <span *ngIf="members.controls[i].get('memberName').errors?.minlength">
+                                                Min length sis 3
+                                            </span>
+                                            <span *ngIf="members.controls[i].get('memberName').errors?.maxlength">
+                                                Max length is 30
+                                            </span>
+                                        </span>
+
+
+                                    </div>
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label for="gender">Member gender</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="col-md-4 form-check form-check-inline">
+                                            <label for="female" class="form-check-label ">
+                                                <input type="radio" id="{{'genderType'+i}}" value="female"
+                                                    formControlName="gender" class="form-check-input"
+                                                    [ngClass]="{'is-invalid': (members.controls[i].get('gender').touched || members.controls[i].get('gender').dirty) && !members.controls[i].get('gender').valid}">
+                                                Female
+
+                                            </label>
+
+                                        </div>
+                                        <div class="col-md-4 form-check form-check-inline">
+                                            <label for="male" class="form-check-label ">
+                                                <input type="radio" id="{{'genderType'+i}}" value="male"
+                                                    formControlName="gender" class="form-check-input"
+                                                    [ngClass]="{'is-invalid': (members.controls[i].get('gender').touched || members.controls[i].get('gender').dirty) && !members.controls[i].get('gender').valid}">
+                                                Male
+
+                                            </label>
+                                        </div>
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="members.controls[i].get('gender').errors?.required">
+                                                Please enter the gender value
+                                            </span>
+                                        </span>
+
+                                    </div>
+
+                                </div>
+                                <div class="row mb-3">
+                                    <div class="col-md-2">
+                                        <label attr.for="{{'age'+i}}" class="form-label">Age</label>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <input type="number" id="{{'age'+i}}" formControlName="age" class="form-control"
+                                            [ngClass]="{'is-invalid': (members.controls[i].get('age').touched || members.controls[i].get('age').dirty)&& !members.controls[i].get('age').valid}">
+                                        <span class="invalid-feedback">
+                                            <span *ngIf="members.controls[i].get('age').errors?.required">
+                                                enter the age
+                                            </span>
+                                        </span>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3 " *ngIf="members.controls[i]">
+                                <div class="col">
+                                    <button (click)="removeMember(i)" class="btn btn-danger"
+                                        [disabled]="!members.controls[i].valid">Remove member</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col">
+                                <button (click)="addMember()" class="btn btn-outline-secondary">Add new member</button>
+                            </div>
+                        </div>
+
+                        <div class="row mb-3">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary"
+                                    [disabled]="!houseEntry.valid">SAVE</button>
+                            </div>
+                        </div>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

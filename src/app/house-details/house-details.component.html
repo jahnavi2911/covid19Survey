@@ -1,0 +1,71 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <div class="card" *ngIf="houseDetails">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <h3 class="text-center house-heading">HOUSE DETAILS</h3>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col house-details">
+                            <div class="row mt-3">
+                                <div class="col-2"><strong>HOUSE NO</strong></div>:
+                                <div class="col-8">{{houseDetails.houseNo}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"><strong>HOUSE ADDRESS</strong> </div>:
+                                <div class="col-8"> {{houseDetails.address}}</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-2"> <strong>RISK LEVEL</strong></div>:
+                                <div class="col-8">
+                                    <span class="badge alert-danger" *ngIf="ageValue" #high>High</span>
+                                    <span class="badge alert-success" *ngIf="!ageValue" #low>Low risk</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-5">
+                        <div class="col-12">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>MEMBER NAME</th>
+                                        <th>MEMBER AGE</th>
+                                        <th>MEMBER GENDER</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let member of houseDetails.members">
+
+                                        <td>{{member.memberName}}</td>
+                                        <td>{{member.age}}
+                                        </td>
+                                        <td>{{member.gender}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+                        </div>
+                        <div class="row mt-5 house-buttons">
+                            <div class="col">
+                                <button (click)="back()" class="btn btn-success">BACK</button>
+                                <button [routerLink]="['/product-edit',id]"
+                                    class="btn btn-primary mx-3 my-3">EDIT</button>
+                                <button (click)="deleteHouse(id)" class="btn btn-danger">DELETE</button>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

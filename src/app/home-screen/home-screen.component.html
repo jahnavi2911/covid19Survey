@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-center">COVID-19 HOUSE SURVEY</h1>
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col text-center">
+
+            <button class="btn btn-success" [routerLink]="['/house']">ADD HOME SURVEY</button>
+
+        </div>
+    </div>
+    <div class="row mt-5">
+        <div class="col-12 surveyDetails">
+            <h4 class="heading mb-4">
+                SURVEY DETAILS
+            </h4>
+        </div>
+        <div class="col-12">
+            <table class="table">
+
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>HOUSE NUMBER</th>
+                        <th>ADDRESS</th>
+                        <th>MEMBERS</th>
+                        <th>RISK LEVEL</th>
+                    </tr>
+                </thead>
+                <tbody *ngFor="let house of houses">
+                    <tr [routerLink]="['/house-detail',house.id]">
+                        <td>{{house.id}}</td>
+                        <td>{{house.houseNo}}</td>
+                        <td>{{house.address}}</td>
+
+                        <td *ngIf="house.members"> {{house.members.length}}</td>
+
+                        <td>
+                            <span *ngIf="riskCondition(house.id)"></span>
+                            <span *ngIf="ageValue" class="badge alert-danger">high</span>
+                            <span *ngIf="!ageValue" class="badge alert-success">low</span>
+                        </td>
+
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

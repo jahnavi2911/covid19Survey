@@ -1,0 +1,20 @@
+.house-heading {
+    border-bottom: black 1px solid;
+    padding: 25px;
+}
+.house-details {
+    padding-left: 150px;
+}
+table {
+    text-align: center;
+    width: 80%;
+    margin: 0 auto;
+}
+
+thead {
+    background-color: rgb(188, 221, 189);;
+}
+
+.house-buttons {
+    text-align: right;
+}
